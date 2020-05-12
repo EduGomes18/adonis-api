@@ -20,3 +20,5 @@ Route.post("/user", "UserController.create");
 Route.post("/login", "UserController.login");
 
 Route.resource("task", "TaskController").apiOnly().middleware("auth");
+
+Route.post("/task/:id/archive", "ArchiveController.create").middleware("auth");

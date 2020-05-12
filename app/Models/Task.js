@@ -9,7 +9,7 @@ class Task extends Model {
   }
 
   archives() {
-    return this.hasMany("App/Model/Archive");
+    return this.hasMany("App/Models/Archive");
   }
 }
 

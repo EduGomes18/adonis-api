@@ -24,11 +24,14 @@ class TaskController {
   async index({ request, response, view, auth }) {
     // const task = await Task.all();
 
-    // const task = await Task.query().where("user_id", auth.user.id).fetch();
+    const task = await Task.query()
+      .where("user_id", auth.user.id)
+      .withCount("archives as total_archives")
+      .fetch();
 
-    const task = await Database.select("title", "description")
-      .from("tasks")
-      .where("user_id", auth.user.id);
+    // const task = await Database.select("title", "description")
+    //   .from("tasks")
+    //   .where("user_id", auth.user.id);
 
     return task;
   }
@@ -73,6 +76,8 @@ class TaskController {
     if (!task) {
       return respose.status(404).send({ message: "No register found" });
     }
+
+    await task.load("archives");
 
     return task;
   }
